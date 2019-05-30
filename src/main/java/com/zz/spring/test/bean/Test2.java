@@ -1,4 +1,4 @@
-package com.zz.spring.testInitBean;
+package com.zz.spring.test.bean;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;

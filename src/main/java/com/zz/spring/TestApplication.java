@@ -16,5 +16,12 @@ public class TestApplication {
         //ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring.xml");
 
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Spring.class);
+
+
+        String tesst = "1-1000|2-1500|3-2000|";
+
+        String[] a = tesst.split("\\-");
+
+        System.out.println(a);
     }
 }

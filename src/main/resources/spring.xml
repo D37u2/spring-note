@@ -6,7 +6,7 @@
 
     <beans default-init-method="init">
 
-        <bean id="blogService" class="com.zz.spring.testInitBean.Test"> </bean>
+        <bean id="blogService" class="com.zz.spring.test.bean.Test"> </bean>
 
     </beans>
 </beans>
