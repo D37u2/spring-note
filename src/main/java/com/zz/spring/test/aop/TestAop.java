@@ -2,6 +2,7 @@ package com.zz.spring.test.aop;
 
 import com.zz.spring.bean.Aop;
 import com.zz.spring.config.Spring;
+import com.zz.spring.controller.TestAopController;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class TestAop {
@@ -11,12 +12,8 @@ public class TestAop {
 
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Spring.class);
 
-        Aop testAop = (Aop) annotationConfigApplicationContext.getBean("testAop");
+        Aop testAop = (Aop) annotationConfigApplicationContext.getBean("testAopController");
 
-        if(testAop instanceof com.zz.spring.bean.Aop){
-
-            System.out.println("11111111111");
-        }
         testAop.query();
 
     }
