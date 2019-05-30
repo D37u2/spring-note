@@ -14,7 +14,7 @@ public class Test2 implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("InitializingBean-init-method....");
+        //System.out.println("InitializingBean-init-method....");
     }
 
 }

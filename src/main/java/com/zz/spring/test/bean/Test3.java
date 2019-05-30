@@ -16,11 +16,11 @@ public class Test3 {
 
     @PostConstruct
     public void useAnnotationInit(){
-        System.out.println("@PostConstruct");
+        //System.out.println("@PostConstruct");
     }
 
     @PreDestroy
     public void useAnnotationDestory(){
-        System.out.println("@PostConstruct");
+        System.out.println("@PreDestroy");
     }
 }
