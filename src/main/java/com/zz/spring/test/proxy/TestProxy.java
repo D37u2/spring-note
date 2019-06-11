@@ -1,7 +1,7 @@
 package com.zz.spring.test.proxy;
 
 
-import com.zz.spring.entity.CityEntity;
+import com.zz.spring.service.IUser;
 import sun.misc.ProxyGenerator;
 
 import java.io.*;
@@ -18,11 +18,11 @@ public class TestProxy {
 
     public static void main(String[] args) {
 
-        Class<?>[] intefaces = new Class[]{CityEntity.class};
+        Class<?>[] intefaces = new Class[]{IUser.class};
 
-        byte[] bytes = ProxyGenerator.generateProxyClass("city",intefaces);
+        byte[] bytes = ProxyGenerator.generateProxyClass("User",intefaces);
 
-        File file = new File("E:\\CityEntity.class");
+        File file = new File("E:\\User.class");
 
         try {
             FileOutputStream writer = new FileOutputStream(file);
