@@ -116,7 +116,7 @@ public class ProxyUtil2 {
                             "        Class[] argst = method.getParameterTypes();"+line+
                             "        "+retC+"targetHandler.invoke(null,method,argst);"+line+
                             "    }";
-            methodC = methodC + childMethodC;
+            methodC += childMethodC;
         }
 
         String fileC = packageC + classStartC +variateHandlerC + variateC + constructorC + methodC +line+ classEndC;
