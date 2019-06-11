@@ -21,6 +21,7 @@ public final class User extends Proxy implements IUser {
     private static Method m1;
     private static Method m3;
     private static Method m2;
+    private static Method m4;
     private static Method m0;
 
     public User(InvocationHandler var1)   {
@@ -39,14 +40,8 @@ public final class User extends Proxy implements IUser {
     }
 
     @Override
-    public final void query()  {
-        try {
-            super.h.invoke(this, m3, (Object[])null);
-        } catch (RuntimeException | Error var2) {
-            throw var2;
-        } catch (Throwable var3) {
-            throw new UndeclaredThrowableException(var3);
-        }
+    public final void query() throws Throwable {
+        super.h.invoke(this, m3, (Object[])null);
     }
 
     @Override
@@ -61,7 +56,12 @@ public final class User extends Proxy implements IUser {
     }
 
     @Override
-    public final int hashCode()  {
+    public final String proxy(String var1) throws Throwable {
+        return (String)super.h.invoke(this, m4, new Object[]{var1});
+    }
+
+    @Override
+    public final int hashCode()   {
         try {
             return (Integer)super.h.invoke(this, m0, (Object[])null);
         } catch (RuntimeException | Error var2) {
@@ -76,6 +76,7 @@ public final class User extends Proxy implements IUser {
             m1 = Class.forName("java.lang.Object").getMethod("equals", Class.forName("java.lang.Object"));
             m3 = Class.forName("com.zz.spring.service.IUser").getMethod("query");
             m2 = Class.forName("java.lang.Object").getMethod("toString");
+            m4 = Class.forName("com.zz.spring.service.IUser").getMethod("proxy", Class.forName("java.lang.String"));
             m0 = Class.forName("java.lang.Object").getMethod("hashCode");
         } catch (NoSuchMethodException var2) {
             throw new NoSuchMethodError(var2.getMessage());
@@ -84,3 +85,4 @@ public final class User extends Proxy implements IUser {
         }
     }
 }
+
