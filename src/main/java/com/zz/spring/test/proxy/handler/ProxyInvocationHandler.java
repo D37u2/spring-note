@@ -29,10 +29,14 @@ public class ProxyInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         //逻辑处理
-        System.out.println("ProxyInvocationHandler 逻辑处理");
+        System.out.println("ProxyInvocationHandler 逻辑处理before");
 
         //invoke 参数(目标对象，目标参数)
-        return method.invoke(target,args);
+        Object object = method.invoke(target,args);
+
+        System.out.println("ProxyInvocationHandler 逻辑处理after");
+
+        return object;
 
     }
 }
