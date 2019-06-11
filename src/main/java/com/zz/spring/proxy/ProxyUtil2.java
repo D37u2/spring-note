@@ -106,7 +106,7 @@ public class ProxyUtil2 {
             /**
              * 注意：此时的 method 不能够使用上述循环（for (Method method : methods)）中的method。需要在文件中重新定义并生成 Method 实例
              *
-             * 因为循环中的method为一个对象，通过 "+ method +" 后会变成一个对象地址字符串（类似：[Ljava.lang.reflect.Method;@5e481248），
+             * 因为循环中的method为一个对象，通过 "+ method +" 后会变成一个对象地址字符串（类似：java.lang.reflect.Method;@5e481248），
              *
              * targetHandler.invoke(null,"+method+","+argst+")
              */
