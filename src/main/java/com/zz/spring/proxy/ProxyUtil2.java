@@ -21,6 +21,8 @@ import java.net.URLClassLoader;
  * 逻辑在ProxyInvocationHandler.invoke()中处理，如：System.out.println("ProxyInvocationHandler 逻辑处理");
  *
  * 代理对象中通过注入ProxyInvocationHandler对象和目标对象，生成的类如$Proxy1.java
+ *
+ * 功能类似JDK中的 Proxy.newProxyInstance() 方法
  */
 public class ProxyUtil2 {
 

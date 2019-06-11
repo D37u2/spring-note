@@ -30,10 +30,6 @@ public class TestJDKProxy {
 
         IUser iuser = new UserTimerImpl(new UserImpl());
 
-        /*Method method = iuser.getClass().getMethod("query");
-
-        Class[] argst = method.getParameterTypes();*/
-
         IUser proxy = (IUser) ProxyUtil2.createProxy(iuser,new ProxyInvocationHandler(iuser));
 
         proxy.query();
