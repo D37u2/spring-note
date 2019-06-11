@@ -1,6 +1,5 @@
 package com.zz.spring.proxy;
 
-
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -13,12 +12,11 @@ import java.net.URLClassLoader;
 
 /**
  * @author: zhoujiong
- * @description: 手写一个代理工具类,代理类中新增打印 iron man
- * @className: ProxyUtil
- * @date: 2019/6/11 10:37
- * @Version 1.0
+ * @description: TODO
+ * @className: ProxyUtil2$
+ * @date: 2019/6/11$ 14:37$
  */
-public class ProxyUtil {
+public class ProxyUtil2 {
 
     /**
      * @Author zhoujiong
@@ -59,12 +57,8 @@ public class ProxyUtil {
 
         for (Method method : methods) {
 
-            String returnTypeName = method.getReturnType().getTypeName();
-
             String argsC = "";
             String argsCo = "";
-            String returnC = "";
-            String retC = "";
 
             Class[] args = method.getParameterTypes();
 
@@ -83,20 +77,11 @@ public class ProxyUtil {
                 argsCo = argsC;
             }
 
-            if(returnTypeName.trim().equals("void")){
-                System.out.println("判断方法是否有返回参数：没有");
-                returnC = "void";
-            }else {
-                System.out.println("判断方法是否有返回参数：有");
-                returnC = returnTypeName;
-                retC = "return ";
-            }
-
             String childMethodC =
-                    "    public "+returnC+" "+method.getName()+"("+argsCo+") {"+line+
-                    "        System.out.println(\"--------iron man-------\");"+line+
-                    "        "+retC+"target."+method.getName()+"("+argsCo+");"+line+
-                    "    }";
+                    "    public void "+method.getName()+"("+argsCo+") {"+line+
+                            "        System.out.println(\"--------iron man-------\");"+line+
+                            "        target."+method.getName()+"("+argsCo+");"+line+
+                            "    }";
             methodC = methodC + childMethodC;
         }
 
@@ -104,7 +89,7 @@ public class ProxyUtil {
 
         System.out.println("将生成的字符串写进java文件");
 
-        File file = new File("E:\\com\\zz\\spring\\proxy\\$Proxy0.java");
+        File file = new File("G:\\com\\zz\\spring\\proxy\\$Proxy0.java");
 
         try {
 
@@ -134,7 +119,7 @@ public class ProxyUtil {
 
             System.out.println("通过URLClassLoader加载Class文件");
 
-            URL[] urls = new URL[]{new URL("file:E:\\\\")};
+            URL[] urls = new URL[]{new URL("file:G:\\\\")};
 
             System.out.println("获取G盘下所有Class文件");
             URLClassLoader urlClassLoader = new URLClassLoader(urls);
@@ -159,4 +144,5 @@ public class ProxyUtil {
 
         return null;
     }
+
 }
