@@ -31,7 +31,7 @@ public class ProxyUtil {
 
         //暂定模板为UserTimerImpl模板
 
-        Object proxy = null;
+        Object proxy;
 
         Class clazz = target.getClass().getInterfaces()[0];
 
@@ -42,7 +42,6 @@ public class ProxyUtil {
         */
 
         String line="\n";
-        String tab ="\t";
 
         Method[] methods = clazz.getMethods();
 
@@ -62,8 +61,8 @@ public class ProxyUtil {
             String returnTypeName = method.getReturnType().getTypeName();
 
             String argsC = "";
-            String argsCo = "";
-            String returnC = "";
+            String argsCo;
+            String returnC;
             String retC = "";
 
             Class[] args = method.getParameterTypes();

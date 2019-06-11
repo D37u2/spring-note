@@ -58,7 +58,7 @@ public class ProxyUtil2 {
         for (Method method : methods) {
 
             String argsC = "";
-            String argsCo = "";
+            String argsCo;
 
             Class[] args = method.getParameterTypes();
 

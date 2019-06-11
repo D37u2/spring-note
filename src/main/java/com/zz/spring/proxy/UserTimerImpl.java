@@ -2,6 +2,12 @@ package com.zz.spring.proxy;
 
 import com.zz.spring.service.IUser;
 
+/**
+ * @author: zhoujiong
+ * @description: 动态代理 聚合
+ * @className: UserTimerImpl
+ * @date: 2019/6/11 15:14
+ */
 public class UserTimerImpl implements IUser {
 
     private IUser user;

@@ -1,6 +1,7 @@
 package com.zz.spring.test.proxy;
 
 import com.zz.spring.proxy.ProxyUtil;
+import com.zz.spring.proxy.UserLogImpl;
 import com.zz.spring.proxy.UserTimerImpl;
 import com.zz.spring.service.IUser;
 import com.zz.spring.service.impl.UserImpl;
@@ -20,7 +21,7 @@ public class TestUser {
 
         userTimer.query();*/
 
-        IUser iuser = new UserImpl();
+        IUser iuser = new UserTimerImpl(new UserImpl());
 
         IUser proxy = (IUser) ProxyUtil.createProxy(iuser);
 
