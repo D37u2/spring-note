@@ -1,15 +1,10 @@
 package com.zz.spring.test.proxy;
 
-import com.zz.spring.proxy.ProxyUtil;
 import com.zz.spring.proxy.ProxyUtil2;
 import com.zz.spring.proxy.UserTimerImpl;
 import com.zz.spring.service.IUser;
 import com.zz.spring.service.impl.UserImpl;
-import com.zz.spring.test.bean.Test;
 import com.zz.spring.test.proxy.handler.ProxyInvocationHandler;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * @author: zhoujiong

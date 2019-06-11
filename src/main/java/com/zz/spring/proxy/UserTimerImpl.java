@@ -21,4 +21,13 @@ public class UserTimerImpl implements IUser {
         System.out.println("--------timer-------");
         user.query();
     }
+
+    @Override
+    public String proxy(String p1) throws Throwable {
+
+        System.out.println("--------timer-------");
+        user.proxy(p1);
+
+        return "success";
+    }
 }

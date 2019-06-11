@@ -76,21 +76,23 @@ public class ProxyUtil2 {
             String argsCo;
             String returnC;
             String retC = "";
+            String castChangeC = "";
 
             Class[] args = method.getParameterTypes();
 
             log.info("方法："+method.getName()+"对应的参数为："+args.toString());
 
-            int index = 0;
+            int index = 1;
             for (Class arg : args) {
-                argsC = arg.getTypeName() + "p"+index+",";
+                argsC = arg.getTypeName() + " p"+index+",";
                 index++;
             }
 
             if(argsC.length()>0){
-                log.info("判断是否有参数");
-                argsCo = argsC.substring(0,argsC.lastIndexOf(',')-1);
+                log.info("判断是否有参数：有");
+                argsCo = argsC.substring(0,argsC.lastIndexOf(','));
             }else {
+                log.info("判断方法是否有返回参数：没有");
                 argsCo = argsC;
             }
 
@@ -101,6 +103,7 @@ public class ProxyUtil2 {
                 log.info("判断方法是否有返回参数：有");
                 returnC = returnTypeName;
                 retC = "return ";
+                castChangeC = "("+returnC+") ";
             }
 
             /**
@@ -114,8 +117,8 @@ public class ProxyUtil2 {
                     "    public "+returnC+" "+method.getName()+"("+argsCo+") throws Throwable {"+line+
                             "        java.lang.reflect.Method method = target.getClass().getDeclaredMethod(\""+method.getName()+"\");"+line+
                             "        Class[] argst = method.getParameterTypes();"+line+
-                            "        "+retC+"targetHandler.invoke(null,method,argst);"+line+
-                            "    }";
+                            "        "+retC+castChangeC+"targetHandler.invoke(null,method,argst);"+line+
+                            "    }"+line;
             methodC += childMethodC;
         }
 

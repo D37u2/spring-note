@@ -72,15 +72,15 @@ public class ProxyUtil {
 
             log.info("方法："+method.getName()+"对应的参数为："+args.toString());
 
-            int index = 0;
+            int index = 1;
             for (Class arg : args) {
-                argsC = arg.getTypeName() + "p"+index+",";
+                argsC = arg.getTypeName() + " p"+index+",";
                 index++;
             }
 
             if(argsC.length()>0){
                 log.info("判断是否有参数");
-                argsCo = argsC.substring(0,argsC.lastIndexOf(',')-1);
+                argsCo = argsC.substring(0,argsC.lastIndexOf(','));
             }else {
                 argsCo = argsC;
             }

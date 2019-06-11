@@ -13,9 +13,17 @@ public class $Proxy1 implements com.zz.spring.service.IUser {
         this.target = target;
         this.targetHandler = targetHandler;
     }
+    @Override
     public void query() throws Throwable {
         java.lang.reflect.Method method = target.getClass().getDeclaredMethod("query");
         Class[] argst = method.getParameterTypes();
         targetHandler.invoke(null,method,argst);
     }
+    @Override
+    public java.lang.String proxy(java.lang.String p1) throws Throwable {
+        java.lang.reflect.Method method = target.getClass().getDeclaredMethod("proxy");
+        Class[] argst = method.getParameterTypes();
+        return (java.lang.String)targetHandler.invoke(null,method,argst);
+    }
+
 }
