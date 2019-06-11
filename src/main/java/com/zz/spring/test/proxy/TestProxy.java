@@ -11,7 +11,7 @@ import java.io.*;
  * @description: 动态代理测试
  * @className: TestProxy
  * @date: 2019/5/29 16:39
- *
+ * @Version 1.0
  * https://www.cnblogs.com/techyc/p/3455950.html
  */
 public class TestProxy {

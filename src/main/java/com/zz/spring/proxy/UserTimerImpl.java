@@ -4,7 +4,7 @@ import com.zz.spring.service.IUser;
 
 public class UserTimerImpl implements IUser {
 
-    IUser user;
+    private IUser user;
 
     public UserTimerImpl(IUser user){
         this.user = user;
