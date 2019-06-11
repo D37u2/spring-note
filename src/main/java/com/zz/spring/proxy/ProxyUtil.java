@@ -49,8 +49,8 @@ public class ProxyUtil {
 
         String packageC = "package com.zz.spring.proxy;"+line;
         String classStartC = "public class $Proxy0 implements "+clazz.getName()+" {"+line;
-        String variateC = "private "+clazz.getName()+" target;"+line;
-        String constructorC = "public $Proxy0("+clazz.getName()+" target){"+line+
+        String variateC = "     private "+clazz.getName()+" target;"+line;
+        String constructorC = "     public $Proxy0("+clazz.getName()+" target){"+line+
                 "        this.target = target;"+line+
                 "    }"+line;
         String methodC = "";

@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
 
 public class TestUser {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Throwable {
         /*IUser user = new UserLogImpl();
 
         user.query();*/

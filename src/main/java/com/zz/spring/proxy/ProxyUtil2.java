@@ -1,5 +1,7 @@
 package com.zz.spring.proxy;
 
+import com.zz.spring.test.proxy.handler.ProxyInvocationHandler;
+
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -25,13 +27,15 @@ public class ProxyUtil2 {
      * @return java.lang.Object
      * @Date 2019/6/11 10:59
      */
-    public static Object createProxy(Object target){
+    public static Object createProxy(Object target, ProxyInvocationHandler handler){
 
         //暂定模板为UserTimerImpl模板
 
-        Object proxy = null;
+        Object proxy;
 
         Class clazz = target.getClass().getInterfaces()[0];
+
+        Class handlerClazz = handler.getClass().getInterfaces()[0];
 
         /*
         getClasses得到该类及其父类所有的public的内部类
@@ -40,25 +44,30 @@ public class ProxyUtil2 {
         */
 
         String line="\n";
-        String tab ="\t";
 
         Method[] methods = clazz.getMethods();
 
         System.out.println("获取目标对象中的方法"+methods.toString());
 
         String packageC = "package com.zz.spring.proxy;"+line;
-        String classStartC = "public class $Proxy0 implements "+clazz.getName()+" {"+line;
-        String variateC = "private "+clazz.getName()+" target;"+line;
-        String constructorC = "public $Proxy0("+clazz.getName()+" target){"+line+
+        String classStartC = "public class $Proxy1 implements "+clazz.getName()+" {"+line;
+        String variateHandlerC = "    private "+handlerClazz.getName()+" targetHandler;"+line;
+        String variateC = "    private "+clazz.getName()+" target;"+line;
+        String constructorC = "    public $Proxy1("+handlerClazz.getName()+" targetHandler,"+clazz.getName()+" target){"+line+
                 "        this.target = target;"+line+
+                "        this.targetHandler = targetHandler;"+line+
                 "    }"+line;
         String methodC = "";
         String classEndC = "}"+line;
 
         for (Method method : methods) {
 
+            String returnTypeName = method.getReturnType().getTypeName();
+
             String argsC = "";
             String argsCo;
+            String returnC;
+            String retC = "";
 
             Class[] args = method.getParameterTypes();
 
@@ -77,19 +86,29 @@ public class ProxyUtil2 {
                 argsCo = argsC;
             }
 
+            if(returnTypeName.trim().equals("void")){
+                System.out.println("判断方法是否有返回参数：没有");
+                returnC = "void";
+            }else {
+                System.out.println("判断方法是否有返回参数：有");
+                returnC = returnTypeName;
+                retC = "return ";
+            }
+
             String childMethodC =
-                    "    public void "+method.getName()+"("+argsCo+") {"+line+
-                            "        System.out.println(\"--------iron man-------\");"+line+
-                            "        target."+method.getName()+"("+argsCo+");"+line+
+                    "    public "+returnC+" "+method.getName()+"("+argsCo+") throws Throwable {"+line+
+                            "        java.lang.reflect.Method method = target.getClass().getDeclaredMethod(\""+method.getName()+"\");"+line+
+                            "        Class[] argst = method.getParameterTypes();"+line+
+                            "        "+retC+"targetHandler.invoke(null,method,argst);"+line+
                             "    }";
             methodC = methodC + childMethodC;
         }
 
-        String fileC = packageC + classStartC + variateC + constructorC + methodC +line+ classEndC;
+        String fileC = packageC + classStartC +variateHandlerC + variateC + constructorC + methodC +line+ classEndC;
 
         System.out.println("将生成的字符串写进java文件");
 
-        File file = new File("G:\\com\\zz\\spring\\proxy\\$Proxy0.java");
+        File file = new File("E:\\com\\zz\\spring\\proxy\\$Proxy1.java");
 
         try {
 
@@ -119,22 +138,22 @@ public class ProxyUtil2 {
 
             System.out.println("通过URLClassLoader加载Class文件");
 
-            URL[] urls = new URL[]{new URL("file:G:\\\\")};
+            URL[] urls = new URL[]{new URL("file:E:\\\\")};
 
             System.out.println("获取G盘下所有Class文件");
             URLClassLoader urlClassLoader = new URLClassLoader(urls);
 
-            System.out.println("加载代理对象com.zz.spring.proxy.$Proxy0");
-            Class clazz2 = urlClassLoader.loadClass("com.zz.spring.proxy.$Proxy0");
+            System.out.println("加载代理对象com.zz.spring.proxy.$Proxy1");
+            Class clazz2 = urlClassLoader.loadClass("com.zz.spring.proxy.$Proxy1");
 
             System.out.println("通过手写的构造方法创建实例");
 
 
             System.out.println("通过方法名和方法参数类型确定构造参数，即参数类型为目标对象类型");
-            Constructor constructor =  clazz2.getConstructor(clazz);
+            Constructor constructor =  clazz2.getConstructor(handlerClazz,clazz);
 
             System.out.println("构建实例");
-            proxy = constructor.newInstance(target);
+            proxy = constructor.newInstance(handler,target);
 
             return proxy;
 

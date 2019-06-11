@@ -17,7 +17,7 @@ public class UserTimerImpl implements IUser {
     }
 
     @Override
-    public void query() {
+    public void query() throws Throwable {
         System.out.println("--------timer-------");
         user.query();
     }
