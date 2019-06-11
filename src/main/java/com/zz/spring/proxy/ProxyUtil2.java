@@ -14,9 +14,13 @@ import java.net.URLClassLoader;
 
 /**
  * @author: zhoujiong
- * @description: TODO
+ * @description: 通过InvocationHandler实现动态代理。
  * @className: ProxyUtil2$
  * @date: 2019/6/11$ 14:37$
+ *
+ * 逻辑在ProxyInvocationHandler.invoke()中处理，如：System.out.println("ProxyInvocationHandler 逻辑处理");
+ *
+ * 代理对象中通过注入ProxyInvocationHandler对象和目标对象，生成的类如$Proxy1.java
  */
 public class ProxyUtil2 {
 
