@@ -1,6 +1,8 @@
 package com.zz.spring.proxy;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -18,6 +20,7 @@ import java.net.URLClassLoader;
  * @date: 2019/6/11 10:37
  * @Version 1.0
  */
+@Slf4j
 public class ProxyUtil {
 
     /**
@@ -45,7 +48,7 @@ public class ProxyUtil {
 
         Method[] methods = clazz.getMethods();
 
-        System.out.println("获取目标对象中的方法"+methods.toString());
+        log.info("获取目标对象中的方法"+methods.toString());
 
         String packageC = "package com.zz.spring.proxy;"+line;
         String classStartC = "public class $Proxy0 implements "+clazz.getName()+" {"+line;
@@ -67,7 +70,7 @@ public class ProxyUtil {
 
             Class[] args = method.getParameterTypes();
 
-            System.out.println("方法："+method.getName()+"对应的参数为："+args.toString());
+            log.info("方法："+method.getName()+"对应的参数为："+args.toString());
 
             int index = 0;
             for (Class arg : args) {
@@ -76,24 +79,24 @@ public class ProxyUtil {
             }
 
             if(argsC.length()>0){
-                System.out.println("判断是否有参数");
+                log.info("判断是否有参数");
                 argsCo = argsC.substring(0,argsC.lastIndexOf(',')-1);
             }else {
                 argsCo = argsC;
             }
 
             if(returnTypeName.trim().equals("void")){
-                System.out.println("判断方法是否有返回参数：没有");
+                log.info("判断方法是否有返回参数：没有");
                 returnC = "void";
             }else {
-                System.out.println("判断方法是否有返回参数：有");
+                log.info("判断方法是否有返回参数：有");
                 returnC = returnTypeName;
                 retC = "return ";
             }
 
             String childMethodC =
                     "    public "+returnC+" "+method.getName()+"("+argsCo+") {"+line+
-                    "        System.out.println(\"--------iron man-------\");"+line+
+                    "        log.info(\"--------iron man-------\");"+line+
                     "        "+retC+"target."+method.getName()+"("+argsCo+");"+line+
                     "    }";
             methodC = methodC + childMethodC;
@@ -101,7 +104,7 @@ public class ProxyUtil {
 
         String fileC = packageC + classStartC + variateC + constructorC + methodC +line+ classEndC;
 
-        System.out.println("将生成的字符串写进java文件");
+        log.info("将生成的字符串写进java文件");
 
         File file = new File("E:\\com\\zz\\spring\\proxy\\$Proxy0.java");
 
@@ -116,7 +119,7 @@ public class ProxyUtil {
             fileOutputStream.flush();
             fileOutputStream.close();
 
-            System.out.println("对Java文件进行编译");
+            log.info("对Java文件进行编译");
 
             JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
@@ -127,27 +130,27 @@ public class ProxyUtil {
             t.call();
             fileMgr.close();
 
-            System.out.println("对Java文件进行编译完成");
+            log.info("对Java文件进行编译完成");
 
-            System.out.println("生成代理对象，由于代理对象的构造方法不是默认的构造方法，所以不能使用默认的class.newInstance()");
+            log.info("生成代理对象，由于代理对象的构造方法不是默认的构造方法，所以不能使用默认的class.newInstance()");
 
-            System.out.println("通过URLClassLoader加载Class文件");
+            log.info("通过URLClassLoader加载Class文件");
 
             URL[] urls = new URL[]{new URL("file:E:\\\\")};
 
-            System.out.println("获取G盘下所有Class文件");
+            log.info("获取G盘下所有Class文件");
             URLClassLoader urlClassLoader = new URLClassLoader(urls);
 
-            System.out.println("加载代理对象com.zz.spring.proxy.$Proxy0");
+            log.info("加载代理对象com.zz.spring.proxy.$Proxy0");
             Class clazz2 = urlClassLoader.loadClass("com.zz.spring.proxy.$Proxy0");
 
-            System.out.println("通过手写的构造方法创建实例");
+            log.info("通过手写的构造方法创建实例");
 
 
-            System.out.println("通过方法名和方法参数类型确定构造参数，即参数类型为目标对象类型");
+            log.info("通过方法名和方法参数类型确定构造参数，即参数类型为目标对象类型");
             Constructor constructor =  clazz2.getConstructor(clazz);
 
-            System.out.println("构建实例");
+            log.info("构建实例");
             proxy = constructor.newInstance(target);
 
             return proxy;
