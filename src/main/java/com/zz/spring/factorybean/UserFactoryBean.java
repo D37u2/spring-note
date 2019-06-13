@@ -1,7 +1,9 @@
 package com.zz.spring.factorybean;
 
-import com.zz.spring.service.impl.UserImpl;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 
 /**
  * @author: zhoujiong
@@ -10,12 +12,13 @@ import org.springframework.beans.factory.FactoryBean;
  * @date: 2019/6/14 0:15
  * @Version 1.0
  */
+@Component("userFactoryBean")
 public class UserFactoryBean implements FactoryBean {
 
 
     @Override
     public Object getObject() throws Exception {
-        return new UserImpl();
+        return new HashMap<>();
     }
 
     @Override
