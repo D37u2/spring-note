@@ -3,6 +3,9 @@ package com.zz.spring.service.impl;
 import com.zz.spring.service.IUser;
 
 public class UserImpl implements IUser {
+    static {
+        System.out.println("userImpl static");
+    }
 
     @Override
     public void query() {
