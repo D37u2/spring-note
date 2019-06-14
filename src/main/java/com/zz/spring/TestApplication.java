@@ -2,6 +2,7 @@ package com.zz.spring;
 
 import com.zz.spring.config.Spring;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author: zhoujiong
@@ -13,10 +14,9 @@ public class TestApplication {
 
     public static void main(String[] args) {
 
-        //ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring.xml");
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring.xml");
 
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Spring.class);
-
 
         String tesst = "1-1000|2-1500|3-2000|";
 
