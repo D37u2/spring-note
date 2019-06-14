@@ -56,6 +56,19 @@ public class AnnotationConfigApplicationContext {
 
     /**
      * @author: zhoujiong
+     * @description: 单个类注册
+     * @date: 2019/6/14 16:32
+     * @param: [clazz]
+     * @return: void
+     */
+    public void register(Class clazz){
+
+        scanList.add(clazz.getName());
+        register();
+    }
+
+    /**
+     * @author: zhoujiong
      * @description: 扫描
      * @className: AnnotationConfigApplicationContext
      * @date: 2019/6/14 15:21
